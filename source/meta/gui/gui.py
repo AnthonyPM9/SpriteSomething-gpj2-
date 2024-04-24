@@ -632,6 +632,13 @@ class SpriteSomethingMainFrame(tk.Frame):
   def go_to_next_pose(self):
     self.frame_number = self.frame_number + self.animation_engine.frames_left_in_this_pose()
     self.pause_global_frame_timer()
+    if hasattr(self, "suit_var"):
+      ship_palettes = [pal for _, pal in self.sprite.get_timed_palette("ship", "standard")]
+      for colors in ship_palettes:
+        lst = colors
+        lst = [next(l) for l in lst]
+        print(lst)
+
 
   # start global timer
   def time_marches_forward(self):
@@ -671,7 +678,8 @@ class SpriteSomethingMainFrame(tk.Frame):
     widgetlib.right_align_grid_in_frame(control_section)
 
     def zoom_out(*args):
-      self.current_zoom = max(0.5, self.current_zoom - 0.1)
+      self.current_zoom = round(self.current_zoom, 1)
+      self.zoom_factor.set('x' + str(self.current_zoom)+ '')
       set_zoom_text()
       self.game.update_background_image()
       self.update_sprite_animation()
@@ -690,6 +698,7 @@ class SpriteSomethingMainFrame(tk.Frame):
       self.current_speed = min(2.0, self.current_speed + 0.1)
       set_speed_text()
     def set_speed_text():
+      self.current_speed = round(self.current_speed, 1)
       self.speed_factor.set(str(round(self.current_speed * 100)) + '%')
 
     if not hasattr(self,"current_zoom"):
