@@ -7,6 +7,7 @@ import unittest         # tests
 import json             # parsing JSON objects
 import os               # os pathing
 import platform
+import plotly.graph_objects as go
 import subprocess
 import sys
 import tempfile         # temp for objects
@@ -220,6 +221,24 @@ class ExportAudit(unittest.TestCase):
                     exit(1)
 
             RESULTS["pf"].append('.' if match else "F")
+
+
+# def test_animation_speed_rounding(file_type):
+#     fig = go.Figure(data=[go.Scatter(y=[1])])
+#     if file_type == "png":
+#         fig.write_image("animation.png")
+#     elif file_type == "gif":
+#         fig.write_image("animation.gif", engine="kaleido")
+#
+#     with open("animation.{}".format(file_type), "rb") as f:
+#         file_content = f.read()
+#     if file_type == "png":
+#
+#
+#     os.remove("animation.{}".format(file_type))
+#
+# test_animation_speed_rounding("png")
+# test_animation_speed_rounding("gif")
 
 
 if __name__ == "__main__":
